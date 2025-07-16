@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/common/Navbar";
 import HeroCarousel from "../components/common/HeroCarousel";
 import PopularCategoriesSection from "../components/common/PopularCategoriesSection";
 import BrowseByMake from "../components/common/BrowseByMake";
@@ -14,22 +13,19 @@ import BlogSection from "../components/common/BlogSection";
 
 const Home: React.FC = () => (
   <>
-    <Navbar />
-    <div className="pt-20">
-      <div className="relative w-full flex justify-center items-center">
-        <HeroCarousel />
-      </div>
-      <PopularCategoriesSection />
-      <BrowseByMake />
-      <CTACards />
-      <FeaturedCarsSection />
-      <CompareVehiclesSection />
-      <SellCarSection />
-      <FeaturesSection />
-      <TestimonialSection />
-      <TeamSection />
-      <BlogSection />
+    <div className="relative w-full flex justify-center items-center">
+      <HeroCarousel />
     </div>
+    <PopularCategoriesSection />
+    <BrowseByMake />
+    <CTACards />
+    <FeaturedCarsSection />
+    <CompareVehiclesSection />
+    <SellCarSection />
+    <FeaturesSection />
+    <TestimonialSection />
+    <TeamSection />
+    <BlogSection />
   </>
 );
 

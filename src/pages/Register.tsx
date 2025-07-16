@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
+import { register, saveAuth } from "../api/auth";
 
-const Register: React.FC = () => (
-  <section className="max-w-md mx-auto bg-white rounded-xl shadow-md p-8">
-    <h2 className="text-2xl font-bold mb-6 text-pink-500">Daftar</h2>
-    <form className="flex flex-col gap-4">
+const Register = () => {
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [msg, setMsg] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await register(form.name, form.email, form.password);
+    if (res.token) {
+      saveAuth(res.token, res.user);
+      setMsg("Registrasi berhasil! Anda sudah login.");
+    } else {
+      setMsg(res.message || "Registrasi gagal.");
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto p-6 bg-white rounded shadow flex flex-col gap-4"
+    >
       <input
-        type="text"
-        placeholder="Nama Lengkap"
-        className="px-4 py-2 rounded-lg border border-gray-200"
+        name="name"
+        placeholder="Nama"
+        onChange={handleChange}
+        required
+        className="border rounded px-3 py-2"
       />
       <input
+        name="email"
         type="email"
         placeholder="Email"
-        className="px-4 py-2 rounded-lg border border-gray-200"
+        onChange={handleChange}
+        required
+        className="border rounded px-3 py-2"
       />
       <input
+        name="password"
         type="password"
         placeholder="Password"
-        className="px-4 py-2 rounded-lg border border-gray-200"
+        onChange={handleChange}
+        required
+        className="border rounded px-3 py-2"
       />
       <button
         type="submit"
-        className="bg-yellow-400 text-white px-6 py-2 rounded-lg font-semibold hover:bg-pink-500 transition"
+        className="bg-blue-600 text-white rounded px-4 py-2 font-bold"
       >
-        Daftar
+        Register
       </button>
+      <div className="text-center text-sm text-green-600">{msg}</div>
     </form>
-    <p className="mt-4 text-sm text-gray-500">
-      Sudah punya akun?{" "}
-      <a href="/login" className="text-pink-500 hover:underline">
-        Login
-      </a>
-    </p>
-  </section>
-);
-
+  );
+};
 export default Register;

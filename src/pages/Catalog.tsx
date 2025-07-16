@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
+import { cars } from "../data/cars";
+import { Link } from "react-router-dom";
 
 const tipeList = [
   "Semua Tipe",
@@ -170,29 +172,41 @@ const Catalog: React.FC = () => {
       </div>
       {/* Dummy List Mobil */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {/* Data dummy, bisa diganti dengan map dari data mobil */}
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-          <div
-            key={i}
-            className="bg-white rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col items-center text-center group"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=80"
-              alt="Mobil Dummy"
-              className="w-full h-32 object-contain mb-4 group-hover:scale-105 transition"
-            />
-            <div className="font-bold text-lg mb-1">Toyota Avanza 2023</div>
-            <div className="text-gray-500 text-sm mb-2">
-              MPV | Jakarta Selatan
+        {cars.map((car) => {
+          const merk = car.name.split(" ")[0];
+          const imgSrc =
+            car.images && car.images.length > 0
+              ? `/foto-mobil/${merk}/${car.images[0]}`
+              : car.image;
+          return (
+            <div
+              key={car.id}
+              className="bg-white rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col items-center text-center group"
+            >
+              <img
+                src={imgSrc}
+                alt={car.name}
+                className="w-full h-32 object-contain mb-4 group-hover:scale-105 transition"
+                loading="lazy"
+              />
+              <div className="font-bold text-lg mb-1">
+                {car.name} {car.year}
+              </div>
+              <div className="text-gray-500 text-sm mb-2">
+                {car.specs.engine} | {car.specs.transmission} | {car.specs.fuel}
+              </div>
+              <div className="font-bold text-primary text-xl mb-2">
+                Rp {car.price.toLocaleString("id-ID")}
+              </div>
+              <Link
+                to={`/car/${car.id}`}
+                className="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold text-sm shadow hover:bg-purple-700 transition"
+              >
+                Lihat Detail
+              </Link>
             </div>
-            <div className="font-bold text-primary text-xl mb-2">
-              Rp 210.000.000
-            </div>
-            <button className="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold text-sm shadow hover:bg-purple-700 transition">
-              Lihat Detail
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

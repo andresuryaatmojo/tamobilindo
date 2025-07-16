@@ -13,7 +13,7 @@ const SellCarSection: React.FC = () => (
         </h3>
         <p className="text-gray-600 mb-6 max-w-md">
           Tambahkan mobil ke Garasi Anda untuk memantau harga pasar dan jual saat waktu terbaik.{' '}
-          <a href="#" className="text-blue-600 underline font-medium">
+          <a href="/" className="text-blue-600 underline font-medium">
             Pelajari Lebih Lanjut
           </a>
         </p>
@@ -22,7 +22,7 @@ const SellCarSection: React.FC = () => (
         </button>
         <div className="mt-2 text-sm text-gray-500">
           Sudah punya akun?{' '}
-          <a href="#" className="text-blue-600 underline font-medium">
+          <a href="/" className="text-blue-600 underline font-medium">
             Masuk.
           </a>
         </div>

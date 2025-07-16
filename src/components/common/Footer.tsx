@@ -47,13 +47,13 @@ const Footer: React.FC = () => (
           Marketplace mobil bekas & baru terpercaya di Indonesia.
         </p>
         <div className="flex gap-3 mb-2">
-          <a href="#" aria-label="Facebook" className="hover:text-accent">
+          <a href="/" aria-label="Facebook" className="hover:text-accent">
             <Facebook size={20} />
           </a>
-          <a href="#" aria-label="Instagram" className="hover:text-accent">
+          <a href="/" aria-label="Instagram" className="hover:text-accent">
             <Instagram size={20} />
           </a>
-          <a href="#" aria-label="Twitter" className="hover:text-accent">
+          <a href="/" aria-label="Twitter" className="hover:text-accent">
             <Twitter size={20} />
           </a>
           <a

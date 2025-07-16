@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Menu,
   Search,
@@ -61,7 +61,51 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
   const [lokasi, setLokasi] = useState(lokasiList[0]);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate?.() || (() => {});
+
+  // Close modal on ESC
+  useEffect(() => {
+    if (!showSearch) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowSearch(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showSearch]);
+
+  // Focus input when modal open
+  useEffect(() => {
+    if (showSearch && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearch]);
+
+  // Close modal on click outside
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!showSearch) return;
+    const handleClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        setShowSearch(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showSearch]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowSearch(false);
+    if (searchValue.trim()) {
+      navigate(`/catalog?search=${encodeURIComponent(searchValue)}`);
+    } else {
+      navigate("/catalog");
+    }
+  };
+
   return (
     <nav className="bg-white shadow-sm fixed top-0 left-0 w-full z-50 font-sans border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
@@ -86,7 +130,7 @@ const Navbar: React.FC = () => {
           ))}
         </div>
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative">
           {/* User Icon */}
           <button
             className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition text-base"
@@ -96,13 +140,14 @@ const Navbar: React.FC = () => {
             <span>Masuk</span>
             <User size={22} />
           </button>
-          {/* Filter Lokasi */}
+          {/* Dropdown Lokasi */}
           <div className="flex items-center gap-2">
             <MapPin size={20} />
             <select
               className="border-none bg-transparent font-medium text-base focus:outline-none"
               value={lokasi}
               onChange={(e) => setLokasi(e.target.value)}
+              aria-label="Pilih Lokasi"
             >
               {lokasiList.map((l) => (
                 <option key={l} value={l}>
@@ -110,6 +155,41 @@ const Navbar: React.FC = () => {
                 </option>
               ))}
             </select>
+          </div>
+          {/* Search Icon Only */}
+          <div className="relative">
+            <button
+              className="flex items-center justify-center bg-purple-600 text-white font-bold p-2 rounded-lg hover:bg-purple-700 transition"
+              aria-label="Cari"
+              title="Cari"
+              onClick={() => setShowSearch((v) => !v)}
+              type="button"
+              id="navbar-search-btn"
+            >
+              <Search size={20} />
+            </button>
+            {/* Dropdown Search Box */}
+            {showSearch && (
+              <div
+                ref={modalRef}
+                className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg p-4 z-50 flex flex-col gap-2 border border-gray-100"
+                style={{ minWidth: 260 }}
+              >
+                <form onSubmit={handleSearchSubmit} className="flex gap-2">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+                    placeholder="Cari mobil (misal: Avanza, Brio, SUV...)"
+                    value={searchValue}
+                    onChange={e => setSearchValue(e.target.value)}
+                  />
+                  <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 transition flex items-center gap-2">
+                    <Search size={20} />
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
           {/* Hamburger with notification */}
           <button

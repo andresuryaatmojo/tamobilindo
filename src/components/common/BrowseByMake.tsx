@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { MapPin, Search } from "lucide-react";
+import React from "react";
 
 const merkList = [
   { name: "Toyota", icon: "/toyota.png" },
@@ -10,43 +9,10 @@ const merkList = [
   { name: "Nissan", icon: "/nissan.png" },
 ];
 
-const lokasiList = [
-  "Jakarta Selatan",
-  "Jakarta Barat",
-  "Jakarta Timur",
-  "Jakarta Utara",
-  "Jakarta Pusat",
-  "Depok",
-  "Tangerang",
-  "Bekasi",
-  "Bandung",
-  "Surabaya",
-];
-
 const BrowseByMake: React.FC = () => {
-  const [lokasi, setLokasi] = useState(lokasiList[0]);
+  // Remove lokasi state and lokasiList
   return (
     <div className="mt-10">
-      <div className="flex items-center gap-8 mb-4">
-        <div className="flex items-center gap-2">
-          <Search size={22} />
-          <span className="font-medium">Cari</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <MapPin size={22} />
-          <select
-            className="border-none bg-transparent font-medium text-base focus:outline-none"
-            value={lokasi}
-            onChange={(e) => setLokasi(e.target.value)}
-          >
-            {lokasiList.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
       <h2 className="text-2xl font-bold mb-4">
         Cari berdasarkan <span className="text-green-500">Merk</span>
       </h2>
