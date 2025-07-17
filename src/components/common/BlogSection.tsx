@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const blogs = [
   {
@@ -31,47 +32,57 @@ const blogs = [
   },
 ];
 
-const BlogSection: React.FC = () => (
-  <section className="py-16 bg-white">
-    <div className="max-w-6xl mx-auto px-4">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-primary mb-4 font-sans">
-        Artikel & Tips Otomotif
-      </h2>
-      <p className="text-center text-muted mb-10">
-        Dapatkan informasi, tips, dan inspirasi seputar dunia otomotif.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {blogs.map((blog, idx) => (
-          <motion.div
-            key={blog.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: idx * 0.1 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow p-6 flex flex-col"
-          >
-            <img
-              src={blog.image}
-              alt={blog.title}
-              className="w-full h-40 object-cover rounded-lg mb-4"
-              loading="lazy"
-            />
-            <span className="text-xs text-gray-400 mb-2">{blog.date}</span>
-            <h3 className="text-lg font-bold text-primary mb-2">
-              {blog.title}
-            </h3>
-            <p className="text-muted text-sm mb-4 flex-1">{blog.summary}</p>
-            <a
-              href={blog.link}
-              className="inline-block bg-primary text-white px-5 py-2 rounded-full font-semibold text-sm shadow hover:bg-secondary transition self-start"
+const BlogSection: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleBlogClick = (link: string) => {
+    // Ambil slug dari link (setelah /blog/ atau /news/)
+    const slug = link.split("/").pop();
+    navigate(`/news/${slug}`);
+  };
+
+  return (
+    <section className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-primary mb-4 font-sans">
+          Artikel & Tips Otomotif
+        </h2>
+        <p className="text-center text-muted mb-10">
+          Dapatkan informasi, tips, dan inspirasi seputar dunia otomotif.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {blogs.map((blog, idx) => (
+            <motion.div
+              key={blog.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow p-6 flex flex-col"
             >
-              Baca Selengkapnya
-            </a>
-          </motion.div>
-        ))}
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-40 object-cover rounded-lg mb-4"
+                loading="lazy"
+              />
+              <span className="text-xs text-gray-400 mb-2">{blog.date}</span>
+              <h3 className="text-lg font-bold text-primary mb-2">
+                {blog.title}
+              </h3>
+              <p className="text-muted text-sm mb-4 flex-1">{blog.summary}</p>
+              <button
+                onClick={() => handleBlogClick(blog.link)}
+                className="inline-block bg-primary text-white px-5 py-2 rounded-full font-semibold text-sm shadow hover:bg-secondary transition self-start"
+              >
+                Baca Selengkapnya
+              </button>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default BlogSection;

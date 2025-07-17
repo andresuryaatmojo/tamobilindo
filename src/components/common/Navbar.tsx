@@ -18,6 +18,7 @@ const navLinks = [
   { name: "Simulasi Kredit", href: "/simulasi-kredit" },
   { name: "News & Review", href: "/news" },
   { name: "Jual Mobil", href: "/sell" },
+  { name: "Admin", href: "/admin" },
 ];
 
 const accountMenu = [
@@ -118,12 +119,12 @@ const Navbar: React.FC = () => {
           <span className="tracking-wide">Mobilindo</span>
         </a>
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 items-center flex-1 justify-center">
+        <div className="hidden md:flex gap-5 items-center flex-1 justify-center min-w-0 overflow-x-auto">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-gray-700 hover:text-blue-600 font-medium transition text-base px-2"
+              className="text-gray-700 hover:text-blue-600 font-medium transition text-base px-2 whitespace-nowrap"
             >
               {link.name}
             </a>
@@ -182,9 +183,12 @@ const Navbar: React.FC = () => {
                     className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
                     placeholder="Cari mobil (misal: Avanza, Brio, SUV...)"
                     value={searchValue}
-                    onChange={e => setSearchValue(e.target.value)}
+                    onChange={(e) => setSearchValue(e.target.value)}
                   />
-                  <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 transition flex items-center gap-2">
+                  <button
+                    type="submit"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 transition flex items-center gap-2"
+                  >
                     <Search size={20} />
                   </button>
                 </form>

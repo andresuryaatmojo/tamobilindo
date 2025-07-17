@@ -13,7 +13,7 @@ const MarketComparison: React.FC<Props> = ({ carPrice }) => {
   return (
     <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-2xl p-8 my-12">
       <h3 className="text-2xl font-extrabold mb-6 text-gray-800">
-        Komparasi Harga Pasar
+        Perbandingan Harga Pasar
       </h3>
       <div className="overflow-hidden rounded-xl shadow">
         <table className="w-full text-base">

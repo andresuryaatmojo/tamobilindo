@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const slides = [
   {
@@ -34,8 +35,21 @@ const slides = [
 
 const HeroCarousel: React.FC = () => {
   const [idx, setIdx] = useState(0);
+  const navigate = useNavigate();
   const next = () => setIdx((i) => (i + 1) % slides.length);
   const prev = () => setIdx((i) => (i - 1 + slides.length) % slides.length);
+
+  const handleCTAClick = (link: string) => {
+    if (link.startsWith("/#")) {
+      const anchor = link.substring(2);
+      const element = document.getElementById(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(link);
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(next, 5000);
@@ -71,12 +85,12 @@ const HeroCarousel: React.FC = () => {
             <p className="text-lg md:text-xl mb-6 font-medium drop-shadow">
               {slides[idx].desc}
             </p>
-            <a
-              href={slides[idx].ctaLink}
+            <button
+              onClick={() => handleCTAClick(slides[idx].ctaLink)}
               className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-full text-lg shadow-lg transition"
             >
               {slides[idx].cta}
-            </a>
+            </button>
           </div>
         </motion.div>
       </AnimatePresence>

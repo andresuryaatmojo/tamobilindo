@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const featuredNews = [
   {
@@ -8,6 +9,7 @@ const featuredNews = [
     img: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=800&q=80",
     author: "Andi Pratama",
     date: "17 Juli 2025",
+    slug: "indeks-mobil-buatan-indonesia-2025",
   },
   {
     title: "Pilihan Hybrid Terbaik 2025 untuk Keluarga Indonesia",
@@ -16,6 +18,7 @@ const featuredNews = [
     img: "https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=80",
     author: "Siti Rahmawati",
     date: "15 Juli 2025",
+    slug: "pilihan-hybrid-terbaik-2025-untuk-keluarga-indonesia",
   },
   {
     title: "SUV Kompak Paling Laris 2025",
@@ -24,6 +27,7 @@ const featuredNews = [
     img: "https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=400&q=80",
     author: "Budi Santoso",
     date: "14 Juli 2025",
+    slug: "suv-kompak-paling-laris-2025",
   },
 ];
 
@@ -35,6 +39,7 @@ const latestNews = [
     img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
     author: "Dewi Lestari",
     date: "13 Juli 2025",
+    slug: "toyota-avanza-2025-resmi-meluncur-fitur-semakin-lengkap",
   },
   {
     title: "Promo Kredit Mobil Juli 2025, DP Mulai 10 Juta",
@@ -43,6 +48,7 @@ const latestNews = [
     img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
     author: "Rizky Saputra",
     date: "12 Juli 2025",
+    slug: "promo-kredit-mobil-juli-2025-dp-mulai-10-juta",
   },
   {
     title: "Review Honda BR-V 2025: MPV Rasa SUV",
@@ -51,6 +57,7 @@ const latestNews = [
     img: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&q=80",
     author: "Fajar Nugroho",
     date: "11 Juli 2025",
+    slug: "review-honda-br-v-2025-mpv-rasa-suv",
   },
 ];
 
@@ -60,24 +67,28 @@ const reviews = [
     img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
     author: "Dian Pratama",
     date: "10 Juli 2025",
+    slug: "review-suzuki-ertiga-hybrid-irit-nyaman",
   },
   {
     title: "Tips Membeli Mobil Bekas Berkualitas",
     img: "https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=400&q=80",
     author: "Rina Sari",
     date: "9 Juli 2025",
+    slug: "tips-membeli-mobil-bekas-berkualitas",
   },
   {
     title: "Perbandingan Xpander vs Avanza vs Ertiga",
     img: "https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=80",
     author: "Budi Santoso",
     date: "8 Juli 2025",
+    slug: "perbandingan-xpander-vs-avanza-vs-ertiga",
   },
   {
     title: "Cara Jual Mobil Online Aman & Cepat",
     img: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=400&q=80",
     author: "Andi Pratama",
     date: "7 Juli 2025",
+    slug: "cara-jual-mobil-online-aman-cepat",
   },
 ];
 
@@ -103,9 +114,12 @@ const News: React.FC = () => (
             <div className="text-sm text-gray-200 mb-2">
               {featuredNews[0].author} | {featuredNews[0].date}
             </div>
-            <button className="bg-white text-black px-6 py-2 rounded-full font-semibold w-max">
+            <Link
+              to={`/news/${featuredNews[0].slug}`}
+              className="bg-white text-black px-6 py-2 rounded-full font-semibold w-max"
+            >
               Baca Selengkapnya
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col gap-4">
@@ -124,9 +138,12 @@ const News: React.FC = () => (
                 <div className="text-gray-500 text-sm mb-1">
                   {item.author} | {item.date}
                 </div>
-                <button className="text-blue-600 font-semibold text-sm">
+                <Link
+                  to={`/news/${item.slug}`}
+                  className="text-blue-600 font-semibold text-sm"
+                >
                   Baca
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -169,9 +186,12 @@ const News: React.FC = () => (
                 <div className="text-gray-500 text-sm mb-1">
                   {item.author} | {item.date}
                 </div>
-                <button className="text-blue-600 font-semibold text-sm">
+                <Link
+                  to={`/news/${item.slug}`}
+                  className="text-blue-600 font-semibold text-sm"
+                >
                   Baca
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -195,9 +215,12 @@ const News: React.FC = () => (
                 <div className="text-gray-500 text-sm mb-1">
                   {item.author} | {item.date}
                 </div>
-                <button className="text-blue-600 font-semibold text-sm">
+                <Link
+                  to={`/news/${item.slug}`}
+                  className="text-blue-600 font-semibold text-sm"
+                >
                   Baca
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -223,9 +246,12 @@ const News: React.FC = () => (
             <div className="text-gray-500 text-sm mb-1 text-center">
               {item.author} | {item.date}
             </div>
-            <button className="text-blue-600 font-semibold text-sm">
+            <Link
+              to={`/news/${item.slug}`}
+              className="text-blue-600 font-semibold text-sm"
+            >
               Baca
-            </button>
+            </Link>
           </div>
         ))}
       </div>

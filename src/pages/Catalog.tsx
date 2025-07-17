@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Search } from "lucide-react";
+import {
+  Search,
+  Car,
+  Filter,
+  Tag,
+  DollarSign,
+  MapPin,
+  Ruler,
+  ChevronDown,
+} from "lucide-react";
 import { cars } from "../data/cars";
 import { Link } from "react-router-dom";
 
@@ -93,62 +102,116 @@ const Catalog: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={tipe}
-            onChange={(e) => setTipe(e.target.value)}
-          >
-            {tipeList.map((t) => (
-              <option key={t}>{t}</option>
-            ))}
-          </select>
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={merk}
-            onChange={(e) => setMerk(e.target.value)}
-          >
-            {merkList.map((m) => (
-              <option key={m}>{m}</option>
-            ))}
-          </select>
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
-          >
-            {modelList.map((m) => (
-              <option key={m}>{m}</option>
-            ))}
-          </select>
+          {/* Tipe */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <Filter size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={tipe}
+              onChange={(e) => setTipe(e.target.value)}
+            >
+              {tipeList.map((t) => (
+                <option key={t}>{t}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
+          {/* Merk */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <Car size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={merk}
+              onChange={(e) => setMerk(e.target.value)}
+            >
+              {merkList.map((m) => (
+                <option key={m}>{m}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
+          {/* Model */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <Tag size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+            >
+              {modelList.map((m) => (
+                <option key={m}>{m}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
         </div>
-        <div className="flex gap-4">
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={harga}
-            onChange={(e) => setHarga(e.target.value)}
-          >
-            {hargaList.map((h) => (
-              <option key={h}>{h}</option>
-            ))}
-          </select>
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={jarak}
-            onChange={(e) => setJarak(e.target.value)}
-          >
-            {jarakList.map((j) => (
-              <option key={j}>{j}</option>
-            ))}
-          </select>
-          <select
-            className="border rounded-lg px-4 py-2"
-            value={lokasi}
-            onChange={(e) => setLokasi(e.target.value)}
-          >
-            {lokasiList.map((l) => (
-              <option key={l}>{l}</option>
-            ))}
-          </select>
+        <div className="flex gap-4 mt-4 md:mt-0">
+          {/* Harga */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <DollarSign size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={harga}
+              onChange={(e) => setHarga(e.target.value)}
+            >
+              {hargaList.map((h) => (
+                <option key={h}>{h}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
+          {/* Jarak */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <Ruler size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={jarak}
+              onChange={(e) => setJarak(e.target.value)}
+            >
+              {jarakList.map((j) => (
+                <option key={j}>{j}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
+          {/* Lokasi */}
+          <div className="relative flex items-center bg-white rounded-lg border border-gray-300 shadow-sm min-w-[140px] focus-within:ring-2 focus-within:ring-purple-400 focus-within:border-purple-500 transition hover:bg-gray-50">
+            <span className="text-purple-500 pl-3 pointer-events-none">
+              <MapPin size={16} />
+            </span>
+            <select
+              className="flex-1 bg-transparent border-none outline-none px-2 py-2.5 font-medium text-gray-700 min-w-[100px] focus:ring-0 appearance-none"
+              value={lokasi}
+              onChange={(e) => setLokasi(e.target.value)}
+            >
+              {lokasiList.map((l) => (
+                <option key={l}>{l}</option>
+              ))}
+            </select>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+              <ChevronDown size={16} />
+            </span>
+          </div>
         </div>
         <button className="bg-purple-600 text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-purple-700 transition mt-2 md:mt-0">
           <Search size={20} /> Cari

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const makes = ["Toyota", "Honda", "Daihatsu", "Suzuki", "Mitsubishi", "Nissan"];
 const models = ["Avanza", "Brio", "Xenia", "Ertiga", "Xpander", "Livina"];
@@ -12,6 +13,19 @@ const HeroSearchPanel: React.FC = () => {
   const [model, setModel] = useState("");
   const [distance, setDistance] = useState(distances[2]);
   const [zip, setZip] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (tab === "shop") {
+      const searchParams = new URLSearchParams();
+      if (search) searchParams.set("search", search);
+      if (make) searchParams.set("make", make);
+      if (model) searchParams.set("model", model);
+      navigate(`/catalog?${searchParams.toString()}`);
+    } else {
+      navigate("/sell");
+    }
+  };
 
   return (
     <div className="absolute left-1/2 -translate-x-1/2 top-12 z-20 w-[95vw] max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg">
@@ -102,7 +116,10 @@ const HeroSearchPanel: React.FC = () => {
                 />
               </div>
             </div>
-            <button className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-full text-lg shadow-lg transition">
+            <button
+              className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-full text-lg shadow-lg transition"
+              onClick={handleSearch}
+            >
               Show 309 matches
             </button>
           </>
@@ -153,7 +170,10 @@ const HeroSearchPanel: React.FC = () => {
                 </label>
               </div>
             </div>
-            <button className="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-full text-lg shadow-lg transition">
+            <button
+              className="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-full text-lg shadow-lg transition"
+              onClick={handleSearch}
+            >
               Get estimate
             </button>
           </>

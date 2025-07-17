@@ -39,7 +39,7 @@ const SimilarCars: React.FC<SimilarCarsProps> = ({ currentCarId, merk }) => {
             </div>
             <div className="flex gap-1">
               <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs font-semibold">
-                Fair Deal
+                Terlaris
               </span>
             </div>
           </Link>

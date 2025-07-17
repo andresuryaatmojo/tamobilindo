@@ -14,8 +14,11 @@ import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/common/Chatbot";
+import AdminAccess from "./components/common/AdminAccess";
 import News from "./pages/News";
 import Sell from "./pages/Sell";
+import ScrollToTop from "./components/common/ScrollToTop";
+import NewsDetail from "./pages/NewsDetail";
 
 function App() {
   const location = useLocation();
@@ -26,9 +29,10 @@ function App() {
   };
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
+      <ScrollToTop />
       {/* <Header /> */}
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-6">
+      <main className="flex-1 container mx-auto px-4 py-6 pt-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -49,6 +53,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="/news" element={<News />} />
+              <Route path="/news/:slug" element={<NewsDetail />} />
               <Route path="/sell" element={<Sell />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -57,6 +62,7 @@ function App() {
       </main>
       <Footer />
       <Chatbot />
+      <AdminAccess />
     </div>
   );
 }

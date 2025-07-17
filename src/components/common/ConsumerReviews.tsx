@@ -19,19 +19,19 @@ const ConsumerReviews: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto my-12">
-      <h2 className="text-2xl font-extrabold mb-2">Consumer reviews</h2>
+      <h2 className="text-2xl font-extrabold mb-2">Ulasan Konsumen</h2>
       <div className="flex items-center gap-2 text-lg font-bold mb-1">
         {avgRating.toFixed(1)}
         <StarRating value={avgRating} />
         <span className="text-base font-normal text-blue-600">
-          ({reviews.length} reviews)
+          ({reviews.length} ulasan)
         </span>
       </div>
       <div className="text-gray-500 mb-4">
-        {Math.round((avgRating / 5) * 100)}% of drivers recommend this car
+        {Math.round((avgRating / 5) * 100)}% pengguna merekomendasikan mobil ini
       </div>
       <div className="mb-6">
-        <div className="font-semibold mb-2">Rating breakdown (out of 5):</div>
+        <div className="font-semibold mb-2">Penilaian detail (dari 5):</div>
         <table className="w-full text-sm">
           <tbody>
             {ratingBreakdown.map((r) => (
@@ -45,7 +45,7 @@ const ConsumerReviews: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <div className="font-bold mb-2">Most recent consumer reviews</div>
+      <div className="font-bold mb-2">Ulasan terbaru dari konsumen</div>
       <div className="flex flex-col gap-4">
         {reviews.map((r, idx) => (
           <div key={idx} className="bg-white rounded-xl shadow p-4">
@@ -60,17 +60,21 @@ const ConsumerReviews: React.FC = () => {
                 month: "long",
                 day: "numeric",
               })}{" "}
-              | By {r.author} {r.owns && <span className="italic">(Owns this car)</span>}
+              | By {r.author}{" "}
+              {r.owns && <span className="italic">(Owns this car)</span>}
             </div>
             <div className="text-gray-700">
-              {expanded === idx ? r.content : r.content.slice(0, 180) + (r.content.length > 180 ? "..." : "")}
+              {expanded === idx
+                ? r.content
+                : r.content.slice(0, 180) +
+                  (r.content.length > 180 ? "..." : "")}
             </div>
             {r.content.length > 180 && (
               <button
                 className="text-blue-600 text-sm mt-1 hover:underline"
                 onClick={() => setExpanded(expanded === idx ? null : idx)}
               >
-                {expanded === idx ? "Show less" : "Show full review"}
+                {expanded === idx ? "Sembunyikan" : "Baca selengkapnya"}
               </button>
             )}
           </div>
@@ -80,4 +84,4 @@ const ConsumerReviews: React.FC = () => {
   );
 };
 
-export default ConsumerReviews; 
+export default ConsumerReviews;

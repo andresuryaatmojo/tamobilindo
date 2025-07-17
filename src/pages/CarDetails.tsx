@@ -6,6 +6,9 @@ import MarketComparison from "../components/common/MarketComparison";
 import CarSpecs from "../components/common/CarSpecs";
 import ConsumerReviews from "../components/common/ConsumerReviews";
 import SimilarCars from "../components/common/SimilarCars";
+import BookingModal, {
+  BookingFormData,
+} from "../components/common/BookingModal";
 
 const CarDetails: React.FC = () => {
   const { id } = useParams();
@@ -25,6 +28,8 @@ const CarDetails: React.FC = () => {
   });
   const [selectedSales, setSelectedSales] = useState(0);
   const [formMsg, setFormMsg] = useState("");
+  const [showBooking, setShowBooking] = useState(false);
+  const [bookingMsg, setBookingMsg] = useState("");
 
   // Dummy salespeople
   const salespeople = [
@@ -160,6 +165,13 @@ const CarDetails: React.FC = () => {
               </button>
               <button className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
                 <Share2 size={20} /> Bagikan
+              </button>
+              <button
+                className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
+                onClick={() => setShowBooking(true)}
+                type="button"
+              >
+                Buat Janji / Test Drive
               </button>
             </div>
           </div>
@@ -302,30 +314,48 @@ const CarDetails: React.FC = () => {
       <CarSpecs
         basics={[
           { label: "Tahun", value: car.year?.toString() || "-" },
-          { label: "Warna", value: "-" },
+          { label: "Warna", value: "Putih" },
           { label: "Mesin", value: car.specs?.engine || "-" },
           { label: "Transmisi", value: car.specs?.transmission || "-" },
           { label: "Bahan Bakar", value: car.specs?.fuel || "-" },
-          { label: "Kapasitas", value: "-" },
-          { label: "Odometer", value: "-" },
+          { label: "Kapasitas", value: "7 Penumpang" },
+          { label: "Odometer", value: "45.000 km" },
         ]}
         features={[
           {
             category: "Kenyamanan",
-            items: ["AC", "Power Steering", "Keyless Entry"],
+            items: [
+              "AC Dual Zone",
+              "Power Steering",
+              "Keyless Entry",
+              "Power Window",
+            ],
           },
           {
             category: "Keamanan",
-            items: ["ABS", "Airbag", "Alarm"],
+            items: ["ABS", "Airbag Ganda", "Alarm", "Immobilizer"],
           },
           {
             category: "Hiburan",
-            items: ["Bluetooth", "USB Port"],
+            items: ["Bluetooth", "USB Port", "Radio FM", "Speaker 4"],
           },
         ]}
       />
       <ConsumerReviews />
       <SimilarCars currentCarId={car.id} merk={merk} />
+      <BookingModal
+        isOpen={showBooking}
+        onClose={() => setShowBooking(false)}
+        onSubmit={(data: BookingFormData) => {
+          setBookingMsg("Permintaan booking berhasil dikirim!");
+          setTimeout(() => setBookingMsg(""), 3000);
+        }}
+      />
+      {bookingMsg && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-[9999] font-bold animate-fade-in">
+          {bookingMsg}
+        </div>
+      )}
     </section>
   );
 };
